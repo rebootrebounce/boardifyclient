@@ -1,44 +1,38 @@
-// import Navbar from './Navbar';
-// import Sidebar from './Sidebar';
-// import { Outlet } from 'react-router-dom';
-
-// const Layout = () => {
-//   return (
-//     <div className="h-screen flex flex-row">
-//       <Sidebar />
-//       <div className="flex-1">
-//         <Navbar />
-//         <div className="p-4">
-//           <Outlet />
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Layout;
 import { Routes, Route } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import PrivateRoute from "./PrivateRoute";
-import Navbar from "./Navbar";
+// import Navbar from "./Navbar";
 import Login from "../pages/Login";
 import Dashboard from "../pages/Dashboard";
 import { useUser } from "../context/UserContext";
+import Registration from "../pages/Registration";
+import Projects from "../pages/project";
+import { ToastContainer } from 'react-toastify';
+import Board from "./board";
 
 export const Layout = () => {
-  const { user } = useUser();
+  const { user, loading } = useUser();
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="flex">
-      {user && <Sidebar />} {/* Show Sidebar only if user is logged in */}
+      {user && <Sidebar userdata={user} />}
       <div className="flex-1">
-        <Navbar />
+        {/* <Navbar /> */}
         <Routes>
-          <Route path="/login" element={<Login />} />
+          {!user && <Route path="/login" element={<Login />} />}
+          <Route path="/registration" element={<Registration/>}/>
           <Route element={<PrivateRoute />}>
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/projects" element={<Projects/>}/>
+            <Route path="/board/:projectId" element={<Board/>}/>
           </Route>
+          <Route path="*" element={<Login />} />
         </Routes>
+        <ToastContainer />
       </div>
     </div>
   );
