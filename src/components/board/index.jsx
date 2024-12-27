@@ -151,13 +151,15 @@ const Board = () => {
       userId: user._id
     };
     try {
-      if (!title || !status || !priority) {
+      if (!title || !status || !priority || !user._id) {
         toast.error("TItle, List, Status & Priority are reqired ");
       }
       const response = await axiosInstance.post("/task", finalData);
       setToggleTask(false);
       setToggleCritical(false);
       setTaskData(InitialTask);
+      handleToggleClose(status);
+      
       fetchTask();
       toast.success(response.data.message);
     } catch (error) {
