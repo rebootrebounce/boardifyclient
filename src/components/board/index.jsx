@@ -152,7 +152,7 @@ const Board = () => {
       priority,
       userId: user._id || user.id
     };
-
+    console.log(finalData, "finalData")
     try {
       if (!finalData.title || !finalData.status || !finalData.priority || !finalData.userId) {
         toast.error("TItle, List, Status & Priority are reqired ");
