@@ -150,9 +150,8 @@ const Board = () => {
       list: projectId,
       status,
       priority,
-      userId: user._id
+      userId: user._id || user.id
     };
-    console.log(user, finalData, "user")
 
     try {
       if (!finalData.title || !finalData.status || !finalData.priority || !finalData.userId) {
