@@ -8,27 +8,27 @@ const axiosInstance = axios.create({
 });
 
 // Add a request interceptor to include the token in headers
-// axiosInstance.interceptors.request.use((config) => {
-//   const token = Cookies.get('tokens');
-//   if (token) {
-//     config.headers.Authorization = `Bearer ${token}`;
-//   }
-//   return config;
-// }, (error) => {
-//   return Promise.reject(error);
-// });
-// Add a request interceptor to log request details
-axiosInstance.interceptors.request.use(
-  (config) => {
-    console.log('Request Config:', config); // Logs the entire request configuration
-    if (config.data) {
-      console.log('Request Body:', config.data); // Logs the request body if present
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
+axiosInstance.interceptors.request.use((config) => {
+  const token = Cookies.get('tokens') || Cookies.get('token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
   }
-);
+  return config;
+}, (error) => {
+  return Promise.reject(error);
+});
+// Add a request interceptor to log request details
+// axiosInstance.interceptors.request.use(
+//   (config) => {
+//     console.log('Request Config:', config); // Logs the entire request configuration
+//     if (config.data) {
+//       console.log('Request Body:', config.data); // Logs the request body if present
+//     }
+//     return config;
+//   },
+//   (error) => {
+//     return Promise.reject(error);
+//   }
+// );
 
 export default axiosInstance;
