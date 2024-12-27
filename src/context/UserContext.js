@@ -31,6 +31,7 @@ export const UserProvider = ({ children }) => {
 
   const loginUser = (token) => {
     Cookies.set('tokens', `${token.token}`, { expires: 7 });
+    Cookies.set('token', `${token.token}`, { expires: 7 });
     Cookies.set('user', token.user)
     setUser(token.user);
   };
