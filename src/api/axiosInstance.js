@@ -17,5 +17,18 @@ const axiosInstance = axios.create({
 // }, (error) => {
 //   return Promise.reject(error);
 // });
+// Add a request interceptor to log request details
+axiosInstance.interceptors.request.use(
+  (config) => {
+    console.log('Request Config:', config); // Logs the entire request configuration
+    if (config.data) {
+      console.log('Request Body:', config.data); // Logs the request body if present
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 export default axiosInstance;
