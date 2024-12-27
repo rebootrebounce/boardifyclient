@@ -144,7 +144,6 @@ const Board = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { title, status, priority } = taskData;
-    console.log(user, "user")
 
     const finalData = {
       title,
@@ -153,6 +152,8 @@ const Board = () => {
       priority,
       userId: user._id
     };
+    console.log(user, finalData, "user")
+
     try {
       if (!finalData.title || !finalData.status || !finalData.priority || !finalData.userId) {
         toast.error("TItle, List, Status & Priority are reqired ");
