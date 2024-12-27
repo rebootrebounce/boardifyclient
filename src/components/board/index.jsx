@@ -144,6 +144,8 @@ const Board = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { title, status, priority } = taskData;
+    console.log(user, "user")
+
     const finalData = {
       title,
       list: projectId,
