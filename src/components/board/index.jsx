@@ -18,6 +18,7 @@ const InitialTask = {
   list: "",
   status: "",
   priority: "low",
+  userId: "",
 };
 
 const Board = () => {
@@ -151,14 +152,14 @@ const Board = () => {
       userId: user._id
     };
     try {
-      if (!title || !status || !priority || !user._id) {
+      if (!finalData.title || !finalData.status || !finalData.priority || !finalData.userId) {
         toast.error("TItle, List, Status & Priority are reqired ");
       }
       const response = await axiosInstance.post("/task", finalData);
+      handleToggleClose(finalData.status);
       setToggleTask(false);
       setToggleCritical(false);
       setTaskData(InitialTask);
-      handleToggleClose(status);
       
       fetchTask();
       toast.success(response.data.message);
