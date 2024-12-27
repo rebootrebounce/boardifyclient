@@ -9,7 +9,7 @@ const axiosInstance = axios.create({
 
 // Add a request interceptor to include the token in headers
 axiosInstance.interceptors.request.use((config) => {
-  const token = Cookies.get('tokens');
+  const token = Cookies.get('token');
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
